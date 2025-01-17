@@ -120,10 +120,6 @@ export default function Home() {
     }
   }
 
-  const handleComplete = () => {
-    setShowDetails(true)
-  }
-
   const handleGuessSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!pokemon || !guess.trim() || gameState.isGameOver) return
@@ -145,6 +141,10 @@ export default function Home() {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
+  function handleComplete(): void {
+    throw new Error('Function not implemented.')
   }
 
   return (
@@ -202,9 +202,8 @@ export default function Home() {
                   {pokemon && (
                     <div className="mt-8 text-center">
                       <div className="relative">
-                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-1 rounded-full z-10 shadow-lg">Who's that Pokémon?</div>
                         <div className="bg-gray-100 p-4 rounded-lg shadow-lg">
-                          <ScratchToReveal key={refreshKey} width={300} height={300} onComplete={handleComplete} backgroundImage="/img/pokeball.png">
+                          <ScratchToReveal key={refreshKey} width={300} height={300} backgroundImage="/img/pokeball.png" minScratchPercentage={90} onComplete={handleComplete}>
                             <img src={pokemon.image} alt={pokemon.name} className="w-full h-full object-contain" />
                           </ScratchToReveal>
                         </div>

@@ -10,23 +10,12 @@ interface ScratchToRevealProps {
   className?: string
   onComplete?: () => void
   backgroundImage?: string
-  gradientColors?: [string, string, string]
 }
 
-const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
-  width,
-  height,
-  minScratchPercentage = 50,
-  onComplete,
-  children,
-  className,
-  backgroundImage,
-  gradientColors = ['#A97CF8', '#F38CB8', '#FDCC92'],
-}) => {
+const ScratchToReveal: React.FC<ScratchToRevealProps> = ({ width, height, minScratchPercentage = 50, onComplete, children, className, backgroundImage }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isScratching, setIsScratching] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   const controls = useAnimation()
 
@@ -48,21 +37,15 @@ const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
 
           // Draw image centered and scaled
           ctx.drawImage(img, centerShiftX, centerShiftY, img.width * scale, img.height * scale)
-          setImageLoaded(true)
         }
         img.src = backgroundImage
       } else {
-        // Fallback to gradient if no image is provided
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-        gradient.addColorStop(0, gradientColors[0])
-        gradient.addColorStop(0.5, gradientColors[1])
-        gradient.addColorStop(1, gradientColors[2])
-        ctx.fillStyle = gradient
+        // Fallback to solid color if no image
+        ctx.fillStyle = '#cccccc'
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        setImageLoaded(true)
       }
     }
-  }, [backgroundImage, gradientColors])
+  }, [backgroundImage])
 
   useEffect(() => {
     const handleDocumentMouseMove = (event: MouseEvent) => {
