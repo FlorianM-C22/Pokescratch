@@ -39,10 +39,9 @@ export default function LandingComponent({ onPlay }: LandingComponentProps) {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.5 }} className="mt-16 bg-black/30 backdrop-blur-sm rounded-lg p-6">
         <h2 className="text-white text-xl font-bold mb-4">Comment jouer ?</h2>
         <ol className="text-white text-left space-y-2">
-          <li>1. Cliquez sur "Get Random Pokémon"</li>
-          <li>2. Grattez la carte pour révéler le Pokémon</li>
-          <li>3. Entrez le nom du Pokémon</li>
-          <li>4. Validez votre réponse !</li>
+          <li>1. Grattez la carte pour révéler le Pokémon</li>
+          <li>2. Entrez le nom du Pokémon</li>
+          <li>3. Validez votre réponse !</li>
         </ol>
       </motion.div>
     </div>

@@ -23,10 +23,11 @@ interface Pokemon {
 export async function getRandomPokemon(): Promise<{
   name: string
   types: string[]
+  type_img: string[]
   image: string
 }> {
   try {
-    const response = await fetch('https://tyradex.vercel.app/api/v1/pokemon')
+    const response = await fetch('https://tyradex.vercel.app/api/v1/gen/1')
     const data = await response.json()
 
     const randomIndex = Math.floor(Math.random() * data.length)
@@ -39,6 +40,7 @@ export async function getRandomPokemon(): Promise<{
     return {
       name: pokemon.name.fr,
       types: pokemon.types?.map(type => type.name) || [],
+      type_img: pokemon.types?.map(type => type.image) || [],
       image: pokemon.sprites.regular,
     }
   } catch (error) {

@@ -9,10 +9,16 @@ export function normalizeText(text: string): string {
   return text
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // Remove accents
-    .replace(/[^a-z0-9]/g, '') // Remove special characters
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '')
+}
+
+export function normalizeDoubleLetters(text: string): string {
+  return text.replace(/(.)\1+/g, '$1')
 }
 
 export function fuzzyMatch(guess: string, actual: string): boolean {
-  return normalizeText(guess) === normalizeText(actual)
+  const normalizedGuess = normalizeDoubleLetters(normalizeText(guess))
+  const normalizedActual = normalizeDoubleLetters(normalizeText(actual))
+  return normalizedGuess === normalizedActual
 }
